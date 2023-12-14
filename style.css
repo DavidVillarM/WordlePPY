@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+body{
+    font-family: 'Montserrat',  sans-serif;
+}
+
+h1 {
+    font-family: 'Montserrat',  sans-serif;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+#word {
+    font-family: 'Montserrat',  sans-serif;
+    font-style: italic;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#guess-input{
+    display: block;
+    margin: 0 auto 20px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 18px;
+    width: 250px;
+    border: 1px solid #ccc;
+    
+}
+#instrucciones{
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    background-color: #0CBABA;
+}
+#guess-button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #0CBABA;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.letter {
+    border: 1px solid black;
+    padding: 3px;
+    margin: 3px;
+    min-width: 20px;
+    text-align: center;
+    display: inline-block;
+}
+
+.row{
+    margin-bottom: 10px;
+    position: relative;
+    align-content: center;
+    text-align: center;
+    margin-top: 20px;
+    margin: auto;
+}
+
+.input-area{
+    margin: 30px;
+}
