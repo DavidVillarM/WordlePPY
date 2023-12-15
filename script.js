@@ -106,7 +106,3 @@ function terminar(mensaje) {
 }
 
 const input = document.getElementById("guess-input");
-const valor = input.value;
-
-
-
