@@ -6,17 +6,38 @@ function init(){
     console.log('Esto se ejecuta solo cuando se carga la pagina web');
 }
 
+const instru = document.getElementById("instrucciones");
+
+instru.addEventListener("click", explicar);
+
+function explicar(){
+    alert("Instrucciones del Juego:\n" + 
+        "Tienes que adivinar la palabra oculta en 6 intentos y" + " el color de las letras cambia para mostrar lo cerca que estas. " +
+            "Para comenzar el juego, simplemente ingrese cualquier palabra, por ejemplo:\n \n" + "MANOS\n \n" +
+            "- Si la letra no existe en la palabra que debes adivinar, la casilla estara en gris \n" +
+            "- Si la letra esta dentro de la palabra pero no en la posicion correcta, la casilla se volvera amarilla \n" +
+            "- Si la letra esta dentro de la palabra y en la posicion correcta, la casilla se volvera verde\n");
+    return;
+}
+
 const button = document.getElementById("guess-button");
 
 button.addEventListener("click", intentar);
 
-let diccionario = ['APPLE', 'HURLS', 'WINGS', 'YOUTH', 'CROWD', 'CLOWN', 'TASTE', 'GREEN', 'BRICK'];
+let palabra = fetch('https://random-word-api.herokuapp.com/word?length=5&lang=es')
+ 	.then(response => response.json())
+ 	.then(response => {
+         console.log(response)
+         palabra = response[0].toUpperCase()
+     })
+ 	.catch(err => console.error(err));
+
+let intentos = 6;
 
 
 //Funcion para comparar la palabra ingresada con la palabra aleatoria
 function intentar(){
     const INTENTO = leerIntento();
-    const palabra = diccionario[Math.floor(Math.random() * diccionario.length)];
     if (INTENTO === palabra) {
         terminar("<h1>GANASTE! 😀</h1>")
         return;
@@ -29,24 +50,33 @@ function intentar(){
     }
 
     const GRID = document.getElementById("grid");
+
     const ROW = document.createElement('div');
     ROW.className = 'row';
-    for (let i in palabra){
+
+    if (INTENTO.length !=5) {
+        alert("Debe ingresar una palabra de 5 letras");
+        return;
+    }
+
+    for (const i in palabra) {
         const SPAN = document.createElement('span');
         SPAN.className = 'letter';
-        if (INTENTO[i]===palabra[i]){ //VERDE
+
+        if (INTENTO[i] === palabra[i]) {
             SPAN.innerHTML = INTENTO[i];
-            SPAN.style.backgroundColor = 'green';
-        } else if( palabra.includes(INTENTO[i]) ) { //AMARILLO
-            SPAN.innerHTML = INTENTO[i];
-            SPAN.style.backgroundColor = 'yellow';
-        } else {      //GRIS
-            SPAN.innerHTML = INTENTO[i];
-            SPAN.style.backgroundColor = 'grey';
+            SPAN.style.backgroundColor = '#79b851';
         }
-        ROW.appendChild(SPAN)
+        else if (palabra.includes(INTENTO[i])) {
+            SPAN.innerHTML = INTENTO[i];
+            SPAN.style.backgroundColor = '#f3c237';
+        } else {
+            SPAN.innerHTML = INTENTO[i];
+            SPAN.style.backgroundColor = '#a4aec4';
+        }
+        ROW.appendChild(SPAN);
     }
-    GRID.appendChild(ROW)
+    GRID.appendChild(ROW);
     intentos--;
     if (intentos==0){
         terminar("<h1>PERDISTE! 😖</h1>")
@@ -76,6 +106,8 @@ function terminar(mensaje) {
 }
 
 const input = document.getElementById("guess-input");
+const valor = input.value;
+
 const valor = input.value;
 
 
